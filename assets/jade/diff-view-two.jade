@@ -1,0 +1,19 @@
+extends layouts/base
+
+block vars
+//  - pageTitle = "Settings"
+
+block content
+
+  table
+    tr
+      td.diff(style="vertical-align:top;")
+        .inserts-title
+        ul.inserts
+          li.insert-item
+            .insert-item-text
+        .deletes-title
+        ul.deletes
+          li.delete-item
+            .delete-item-text
+      td.second-draft

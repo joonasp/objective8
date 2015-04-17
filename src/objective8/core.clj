@@ -54,6 +54,8 @@
                :fe/add-draft-get (m/wrap-authorise-writer (utils/anti-forgery-hook front-end-handlers/add-draft-get))
                :fe/add-draft-post (m/wrap-authorise-writer (utils/anti-forgery-hook front-end-handlers/add-draft-post))
                :fe/draft (utils/anti-forgery-hook front-end-handlers/draft)
+               :fe/draft-diff-one front-end-handlers/draft-diff-one
+               :fe/draft-diff-two front-end-handlers/draft-diff-two
                :fe/draft-list front-end-handlers/draft-list
                :fe/import-draft-get (m/wrap-authorise-writer (utils/anti-forgery-hook front-end-handlers/import-draft-get)) 
                :fe/import-draft-post (m/wrap-authorise-writer (utils/anti-forgery-hook front-end-handlers/import-draft-post))

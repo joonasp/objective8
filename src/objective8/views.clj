@@ -15,7 +15,9 @@
             [objective8.templates.import-draft :as import-draft]
             [objective8.templates.sign-in :as sign-in]  
             [objective8.templates.sign-up :as sign-up]
-            [objective8.templates.error-404 :as error-404]))
+            [objective8.templates.error-404 :as error-404]
+            [objective8.templates.diff-view-one :as diff-view-one]
+            [objective8.templates.diff-view-two :as diff-view-two]))
 
 
 (defn- user-info [request auth-map]
@@ -69,3 +71,5 @@
 (def sign-in (view sign-in/sign-in-page))
 (def sign-up (view sign-up/sign-up-page))
 (def error-404 (view error-404/error-404-page))
+(def diff-view-one (view diff-view-one/diff-view-one-page))
+(def diff-view-two (view diff-view-two/diff-view-two-page))

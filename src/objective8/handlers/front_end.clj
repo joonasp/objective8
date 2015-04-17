@@ -6,6 +6,7 @@
             [org.httpkit.client :as http]
             [objective8.http-api :as http-api]
             [objective8.front-end-helpers :as helpers]
+            [objective8.diff :as diff]
             [objective8.utils :as utils]
             [objective8.views :as views]))
 
@@ -466,6 +467,28 @@
         (error-404-response request))
 
       :else {:status 500})))
+
+(defn draft-diff-one [request]
+  (let [{first-draft :first-draft 
+         diff :diff
+         second-draft :second-draft} (diff/get-all-views)]
+  {:status 200
+   :header {"Content-Type" "text/html"}  
+   :body (views/diff-view-one "diff-view-one" request
+                              :first-draft (utils/hiccup->html first-draft) 
+                              :diff (utils/hiccup->html diff) 
+                              :second-draft (utils/hiccup->html second-draft))}))
+
+(defn draft-diff-two [request]
+  (let [{deletes :deletes 
+         inserts :inserts
+         second-draft :second-draft} (diff/get-diff)]
+  {:status 200
+   :header {"Content-Type" "text/html"}  
+   :body (views/diff-view-two "diff-view-two" request
+                              :deletes deletes 
+                              :inserts inserts 
+                              :second-draft (utils/hiccup->html second-draft))}))
 
 (defn draft-list [{{:keys [id]} :route-params :as request}]
   (let [objective-id (Integer/parseInt id)
