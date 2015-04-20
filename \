@@ -39,67 +39,46 @@
    }
   )
 
-(defn split-element-at-position [element char-position]
-  (let [element-type (first element)
-        element-content (nth element 2)]
-   [[element-type {} (subs element-content 0 char-position)] 
-    [element-type {} (subs element-content char-position)]]))
-
-(defn wrap-with-p-tag [elements]
-  (apply merge [:p {}] elements))
-
-(defn format-diff [paragraph-size char-count-for-diff diffs]
- (let [cumulative-sum (reductions + char-count-for-diff)
-       index (count (filter #(< % paragraph-size) cumulative-sum))
-       complete-elements (take index diffs)
-       new-char-count (drop index char-count-for-diff)
-       new-diffs (drop index diffs)
-       final-element (if (> (nth cumulative-sum index) paragraph-size)
-                       (first (split-element-at-position (nth diffs index) (- paragraph-size (nth cumulative-sum (dec index))))) 
-                       (nth diffs index))
-       elements-to-format (concat complete-elements [final-element])
-       remaining-diff-char-count (if (> (nth cumulative-sum index) paragraph-size)
-                                   [(- (first new-char-count) (- paragraph-size (nth cumulative-sum (dec index)))) (rest new-char-count)]
-                                   (rest new-char-count))
-       remaining-diffs (if (> (nth cumulative-sum index) paragraph-size)
-                                   (second (split-element-at-position (nth diffs index) (- paragraph-size (nth cumulative-sum (dec index))))) 
-                                   (rest diffs))]
-   (prn remaining-diff-char-count)
-   (prn remaining-diffs)
-   {:formatted-paragraph (wrap-with-p-tag elements-to-format)
-    :remaining-diff-char-count remaining-diff-char-count 
-    :remaining-diffs remaining-diffs}))
+(defn format-diff [char-count-for-draft cumulative-sum diffs]
+ (let [first-paragraph-size (first char-count-for-draft)
+ index (count (filter #(< % first-paragraph-size) cumulative-sum))
+ elements-to-format (take (inc index) diffs)]   
+ 
+  (if (> (nth cumulative-sum index))) 
+  
+   )
+  )
 
 (defn get-chars-from-diff [diff char-counts]
   
   )
 
-
+(defn split-element-at-position [element char-position]
+  (let [element-type (first element)
+        element-content (nth element 2)]
+   [[element-type {} (sub element-content 0 char-position)] 
+    [element-type {} (sub element-content char-position)]]))
 
 (defn get-character-count-for-element [element]
   (if (> (count element) 2) (count (nth element 2)) 0))
 
 (defn get-character-counts-for-draft [hiccup-draft]
-  (map get-character-count-for-element hiccup-draft))
+ (prn (map get-character-count-for-element hiccup-draft)))
 
 (defn add-formatting [diff draft]
  (let [char-counts-for-draft (get-character-counts-for-draft draft)
-       _ (prn char-counts-for-draft)
        diff-without-deletes (remove-del-elements (dmp/as-hiccup diff))
-       _ (prn diff-without-deletes)
        char-count-for-diff (get-character-counts-for-draft diff-without-deletes)
-       _ (prn char-count-for-diff)
-        formatted-first-paragraph (format-diff (first char-counts-for-draft) char-count-for-diff diff-without-deletes)
-       formatted-second-paragraph (format-diff (second char-counts-for-draft) (:remaining-diff-char-count formatted-first-paragraph) (:remaining-diffs formatted-first-paragraph))]
-   (prn formatted-first-paragraph)
-   (prn formatted-second-paragraph)))
+       cumulative-sum (reductions + char-count-for-diff)
+       formatted-diff ()
+       ]))
 
 
 (defn get-all-views []
   (let [draft-1 (get-hiccup-draft 31572)
         draft-2 (get-hiccup-draft 31573)
         diffs (dmp/cleanup! (dmp/diff (get-text draft-1) (get-text draft-2)))]
-    (add-formatting diffs draft-2)
+    (add-formatting diffs draft-1)
     {:first-draft draft-1
      :diff (dmp/as-hiccup diffs) 
      :second-draft draft-2}))
