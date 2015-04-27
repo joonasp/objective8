@@ -1,9 +1,9 @@
-masthead,skip-to-navigation,Skip to navigation
-masthead,logo-title-attr,Go to home page
-masthead,objectives-link-title-attr,Go to the Objectives list
-masthead,objectives-link,Objectives
-masthead,about-link-title-attr,Learn more about Objective[8]
-masthead,about-link,About
+masthead,skip-to-navigation,Siirry valikkoon
+masthead,logo-title-attr,Etusivulle
+masthead,objectives-link-title-attr,Selaa Ehdotuksia
+masthead,objectives-link,Ehdotukset
+masthead,about-link-title-attr,Lisätietoa Ehdotus[8]:sta
+masthead,about-link,Lisätietoa
 status-bar,status-text,ALPHA: This is a testing build of Objective8. Features and data may change several times a day.
 sign-in,doc-title,Sign in or Sign up | Objective[8]
 sign-in,doc-description,Sign in or Sign up to Objective [8]
